@@ -5,8 +5,8 @@ const router = new Router();
 let userList = [];
 
 // Insere (Adicona) um novo user
-router.post('/users', (ctx, next) => {
-    ctx.status = 200;
+router.post('/user', (ctx, next) => {
+    ctx.status = 201;
     
     let user = ctx.request.body;
     userList.push(user);
@@ -22,12 +22,12 @@ router.get('/users', async (ctx) => {
     ctx.body = { 
         total: userList.length,
         //count: 0,
-        rows:userList
+        rows: userList
     }
 });
 
 // Deleta itens da lista 
-router.delete('/users/:index', async (ctx) => {
+router.delete('/user/:index', async (ctx) => {
     ctx.status = 200;
     let index = ctx.params.index;
     let removed = userList.splice(index, 1);
@@ -38,7 +38,7 @@ router.delete('/users/:index', async (ctx) => {
 });
 
 //Edita o usuário cadastrado.
-router.put('/users/:index', async (ctx) => {
+router.put('/user/:index', async (ctx) => {
     ctx.status = 200;
     let user = ctx.request.body;
     let index = ctx.params.index;

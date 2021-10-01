@@ -13,6 +13,10 @@ var router = new Router();
 
 koa.use(bodyParser());
 
+router.get('/', (ctx, next) => {
+  ctx.status = 200;
+});
+
 koa
   .use(router.routes())
   .use(usersRoutes.routes())
