@@ -24,6 +24,6 @@ koa
   
 
 const server = koa.listen(PORT);
-console.log('Seu servidor');
+console.log('Servidor inicializado: http://localhost:'+ PORT);
 
 module.exports = server;

@@ -81,7 +81,8 @@ describe('Testes da aplicaçao',  () => {
             done();
         });
     });
-    //...adicionar pelo menos mais 5 usuarios. se adicionar usuario menor de idade, deve dar erro. Ps: não criar o usuario naoExiste
+    //...adicionar pelo menos mais 5 usuarios. se adicionar usuario menor de idade, deve dar erro.
+    // Ps: não criar o usuario naoExiste
 
     it('o usuario naoExiste não existe no sistema', function (done) {
         chai.request(app)
