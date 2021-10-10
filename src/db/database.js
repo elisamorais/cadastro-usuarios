@@ -20,17 +20,57 @@ let connect = async function () {
 }
 
 let insertUser = async function(user) {
+    let result;
+
     try {
         await connect();
 
-        let result = await db.run('INSERT INTO user (nome, email, idade) VALUES ("'+ user.nome +'", "'+ user.email +'", '+ user.idade +')');
-        console.log(result);
+        result = await db.run('INSERT INTO user (nome, email, idade) VALUES ("'+ user.nome +'", "'+ user.email +'", '+ user.idade +')');
 
         await db.close();
 
     } catch (error) {
         console.log(error)
     }
+    return result;
+}
+
+let deleteUser = async function(nome) {
+    let result = null;
+    try {
+        await connect();
+        result = await db.run('DELETE FROM user WHERE nome = "'+ nome + '"');
+        await db.close();
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    return result;
+}
+
+
+let updateUser = async function(nome, dados) {
+    let result = null;
+    
+    try {
+        await connect();
+        result = await db.run(`
+            UPDATE user 
+            SET
+                nome = "${dados.nome}",
+                email = "${dados.email}",
+                idade = ${dados.idade}
+            WHERE
+                nome = "${nome}"
+        `);
+        await db.close();
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    return result;
 }
 
 let listUsers = async function(page) {
@@ -55,6 +95,8 @@ let listUsers = async function(page) {
 module.exports = {
     connect,
     insertUser,
-    listUsers
+    listUsers,
+    deleteUser,
+    updateUser
 }
 

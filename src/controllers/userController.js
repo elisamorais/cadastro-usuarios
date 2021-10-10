@@ -3,20 +3,21 @@ const router = new Router();
 const db = require('../db/database')
 
 // Insere (Adiciona) um novo user
-router.post('/user', (ctx, next) => {
+router.post('/user', async (ctx, next) => {
     ctx.status = 201;
     
     let user = ctx.request.body;
-    db.insertUser(user);
+    let result = await db.insertUser(user);
 
-    ctx.body = {
-        message: 'Usuário cadastrado com sucesso!'
+    if (result.changes > 0) {
+        ctx.body = { message: 'Usuário cadastrado com sucesso!' }
+    } else {
+        ctx.body = { message: 'Não foi possível cadastrar o usuário' }
     }
 });
 
 // Lista todos os users
 router.get('/users', async (ctx) => {
-
     let page = parseInt(ctx.request.query.page)
     let userList = await db.listUsers(page)
     
@@ -29,28 +30,34 @@ router.get('/users', async (ctx) => {
     }
 });
 
-// // Deleta itens da lista 
-// router.delete('/user/:index', async (ctx) => {
-//     ctx.status = 200;
-//     let index = ctx.params.index;
-//     let removed = userList.splice(index, 1);
- 
-//     ctx.body = { 
-//         message: 'Usuário ' + removed[0].nome + ' removido com sucesso!'
-//     }
-// });
-
-// //Edita o usuário cadastrado.
-// router.put('/user/:index', async (ctx) => {
-//     ctx.status = 200;
-//     let user = ctx.request.body;
-//     let index = ctx.params.index;
-//     userList[index] = user;
+// Deleta itens da lista 
+router.delete('/user/:nome', async (ctx) => {
+    ctx.status = 200;
+    let nome = ctx.params.nome;
     
-//     ctx.body = {
-//         message: 'Usuário editado com sucesso!'
-//     }
-// });
+    let result = await db.deleteUser(nome)
+
+    if (result.changes > 0) {
+        ctx.body = { message: 'Usuário removido com sucesso!' }
+    } else {
+        ctx.body = { message: 'Não foi possível remover o usuário' }
+    }
+});
+
+//Atualiza o usuário cadastrado.
+router.put('/user/:nome', async (ctx) => {
+    ctx.status = 200;
+    let nome = ctx.params.nome;
+    let dados = ctx.request.body;
+    
+    let result = await db.updateUser(nome, dados)
+
+    if (result.changes > 0) {
+        ctx.body = { message: 'Usuário atualizado com sucesso!' }
+    } else {
+        ctx.body = { message: 'Não foi possível atualizar o usuário' }
+    }
+});
 
 module.exports = router;
 
