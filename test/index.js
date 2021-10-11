@@ -14,30 +14,25 @@ const assert = require('assert');
 const chai = require('chai')
 const chaiHttp = require('chai-http');
 const chaiJson = require('chai-json-schema');
+const userSchema = require('./userSchema')
+const sqlite3 = require('sqlite3').verbose();
+const sqlite = require('sqlite');
 
 chai.use(chaiHttp);
 chai.use(chaiJson);
 
 const expect = chai.expect;
 
-//Define o minimo de campos que o usuário deve ter. Geralmente deve ser colocado em um arquivo separado
-const userSchema = {
-    title: "Schema do Usuario, define como é o usuario, linha 24 do teste",
-    type: "object",
-    required: ['nome', 'email', 'idade'],
-    properties: {
-        nome: {
-            type: 'string'
-        },
-        email: {
-            type: 'string'
-        },
-        idade: {
-            type: 'number',
-            minimum: 18
-        }
+// Limpa banco de dados antes de começar os testes
+let cleanDatabase = async function() {
+    try {
+        let db = await sqlite.open({ filename: 'src/db/database-test.db', driver: sqlite3.Database });
+        await db.run("DROP TABLE IF EXISTS user");
+    } catch(error) {
+        console.log(error)
     }
 }
+cleanDatabase()
 
 //Inicio dos testes
 
@@ -81,16 +76,60 @@ describe('Testes da aplicaçao',  () => {
             done();
         });
     });
+
+    [1, 2, 3, 4, 5].forEach(value => {
+        it(`deveria criar o usuário nº ${value}`, function (done) {
+            chai.request(app)
+            .post('/user')
+            .send({nome: `Usuário ${value}`, email: `usuario${value}@email.com`, idade: 20 + value})
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(201);
+                done();
+            });
+        });
+    });
+
+    it('Não deveria criar um usuário com idade menor do que 18 anos', function (done) {
+        chai.request(app)
+        .post('/user')
+        .send({nome: 'De menor', email: 'demenor@email.com', idade: 17})
+        .end(function (err, res) {
+            expect(err).to.be.null;
+            expect(res).to.have.status(400);
+            done();
+        });
+    });
+
     //...adicionar pelo menos mais 5 usuarios. se adicionar usuario menor de idade, deve dar erro.
     // Ps: não criar o usuario naoExiste
-
     it('o usuario naoExiste não existe no sistema', function (done) {
         chai.request(app)
         .get('/user/naoExiste')
         .end(function (err, res) {
-            expect(err.response.body.error).to.be.equal('User not found'); //possivelmente forma errada de verificar a mensagem de erro
+            expect(err).to.be.null;
             expect(res).to.have.status(404);
-            expect(res.body).to.be.jsonSchema(userSchema);
+            done();
+        });
+    });
+
+    it('Não deveria ser possível excluir o usuário naoExiste', function (done) {
+        chai.request(app)
+        .delete('/user/naoExiste')
+        .end(function (err, res) {
+            expect(err).to.be.null;
+            expect(res).to.have.status(404);
+            done();
+        });
+    });
+
+    it('Não deveria ser possível atualizar o usuário naoExiste', function (done) {
+        chai.request(app)
+        .put('/user/naoExiste')
+        .send({ nome: "naoExiste", email: "naoexiste@email.com", idade: 40 })
+        .end(function (err, res) {
+            expect(err).to.be.null;
+            expect(res).to.have.status(404);
             done();
         });
     });
@@ -106,13 +145,35 @@ describe('Testes da aplicaçao',  () => {
         });
     });
 
+    it('Deveria atualizar a idade do usuário raupp', function (done) {
+        chai.request(app)
+        .put('/user/raupp')
+        .send({nome: "raupp", email: "jose.raupp@devoz.com.br", idade: 36})
+        .end(function (err, res) {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            done();
+        });
+    });
+
+    it('Deveria obter a idade atualizada do usuário raupp', function (done) {
+        chai.request(app)
+        .get('/user/raupp')
+        .end(function (err, res) {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.jsonSchema(userSchema);
+            expect(res.body.idade).to.be.equal(36)
+            done();
+        });
+    });
+
     it('deveria excluir o usuario raupp', function (done) {
         chai.request(app)
         .delete('/user/raupp')
         .end(function (err, res) {
             expect(err).to.be.null;
             expect(res).to.have.status(200);
-            expect(res.body).to.be.jsonSchema(userSchema);
             done();
         });
     });
@@ -122,8 +183,7 @@ describe('Testes da aplicaçao',  () => {
         .get('/user/raupp')
         .end(function (err, res) {
             expect(err).to.be.null;
-            expect(res).to.have.status(200);
-            expect(res.body).to.be.jsonSchema(userSchema);
+            expect(res).to.have.status(404);
             done();
         });
     });

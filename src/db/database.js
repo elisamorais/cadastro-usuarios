@@ -5,13 +5,13 @@ let db = null;
 
 let connect = async function () {
     try {
-
-        db = await sqlite.open({ filename: 'src/db/database.db', driver: sqlite3.Database });
-        console.log('Conectado ao banco de dados.');
+        if (isTestMode()) {
+            db = await sqlite.open({ filename: 'src/db/database-test.db', driver: sqlite3.Database });
+        } else {
+            db = await sqlite.open({ filename: 'src/db/database.db', driver: sqlite3.Database });
+        }
 
         await db.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, nome TEXT, email TEXT, idade INT)");
-        console.log('Tabela user criada.');
-
     } catch (error) {
         console.log(error)
     }
@@ -40,6 +40,20 @@ let deleteUser = async function(nome) {
     try {
         await connect();
         result = await db.run('DELETE FROM user WHERE nome = "'+ nome + '"');
+        await db.close();
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    return result;
+}
+
+let getUser = async function(nome) {
+    let result = null;
+    try {
+        await connect();
+        result = await db.get('SELECT * FROM user WHERE nome = "'+ nome + '"');
         await db.close();
 
     } catch (error) {
@@ -92,11 +106,17 @@ let listUsers = async function(page) {
     return result;
 }
 
+// https://stackoverflow.com/questions/29183044/how-to-detect-if-a-mocha-test-is-running-in-node-js
+let isTestMode = function() {
+    return typeof global.it === 'function';
+}
+
 module.exports = {
     connect,
     insertUser,
     listUsers,
     deleteUser,
+    getUser,
     updateUser
 }
 

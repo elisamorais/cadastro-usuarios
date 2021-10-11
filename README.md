@@ -3,19 +3,17 @@ Sqlite com promises - https://sharklabs.com.br/tutorial-node-js-sqlite-promises/
 
 
 ---TESTE--
-O objetivo do projeto é, usando o NodeJs, Koa, Mocha e Chai, fazer uma API que permita:
-Adicionar, editar, lista e remover Usuários. 
-Como bônus, a lista de usuário pode permitir paginação. (Não é necessário, é bônus)
-O projeto base já possui boa parte da implementação pronta, incluindo alguns testes de unidade.
-Não é necessário conexão com nenhuma base de dados, tudo pode rodar em memória.
-Como bônus, pode ser adicionado suporte ao banco de dados sqlite. (Não é necessário, é bônus)
+OK - O objetivo do projeto é, usando o NodeJs, Koa, Mocha e Chai, fazer uma API que permita:
+OK - Adicionar, editar, lista e remover Usuários. 
+OK - Como bônus, a lista de usuário pode permitir paginação. (Não é necessário, é bônus)
+OK - O projeto base já possui boa parte da implementação pronta, incluindo alguns testes de unidade.
+OK - Não é necessário conexão com nenhuma base de dados, tudo pode rodar em memória. Como bônus, pode ser adicionado suporte ao banco de dados sqlite. (Não é necessário, é bônus)
 
-Para rodar o projeto base:
-
-1 - download do anexo do email, descompacte em algum lugar de facil acesso
-2 - instale os pacotes do node: npm install 
-3 - rode os testes de unindade: npm test
-3 - rode o projeto: npm run dev
+OK - Para rodar o projeto base:
+OK - 1 - download do anexo do email, descompacte em algum lugar de facil acesso
+OK - 2 - instale os pacotes do node: npm install 
+OK - 3 - rode os testes de unindade: npm test
+OK - 3 - rode o projeto: npm run dev
 
 Não é necessário nenhuma interface grafica para este projeto. Tudo será testado via unit test, ou seja, você deverá implementar mais unit tests, usando o arquivo: /test/index.js antes ou após  implementar a API em sí.
 Como bonus, pode ser criada uma interface básica em HTML5. (Não é necessário, é bônus).
