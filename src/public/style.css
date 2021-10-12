@@ -16,7 +16,6 @@
 
 #container {
     border: solid 2px #ececec;
-
     margin: 25px 25px 25px 25px;
 }
 
@@ -45,6 +44,7 @@
 
 #tabelaCrud .acoes {
     text-align: center;
+    
 }
 
 .botao {
@@ -63,11 +63,13 @@
 .botao.botaoVerde {
     border: solid 2px #70c391;
     color: #70c391;
+    margin: 5px;
 }
 
 .botao.botaoVermelho {
     border: solid 2px #ff8492;
     color: #ff8492;
+    margin: 5px;
 }
 
 #formAdicionar {
@@ -87,12 +89,17 @@
 
 #formAdicionar input {
     border: solid 2px #ececec;
-    color: #70c391;
     border-radius: 5px;
     height: 20px;
     padding: 10px;
 }
 
 #botaoSalvar {
-    margin-top: 25      px;
+    margin-top: 25px;
+    width: 50px;
+}
+.botaoSalvarContainer {
+    width: 100%;
+    text-align: center;
+    padding-top: 65px;
 }

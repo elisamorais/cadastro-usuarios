@@ -2,25 +2,26 @@ const Router = require('koa-router');
 const router = new Router();
 const db = require('../db/database')
 
-/*
-    - Tentar excluir usuário que não existe não deve conseguir
-    - Tentar atualizar usuário que não existe não deve conseguir
-*/
-
-
 // Insere (Adiciona) um novo user
 router.post('/user', async (ctx, next) => {
 
     let user = ctx.request.body;
+
     let resultStatus;
-    if (user.idade >= 18) {
+    if (parseInt(user.idade) >= 18) {
         let result = await db.insertUser(user);
         if (result.changes > 0) {
-            ctx.body = { message: 'Usuário cadastrado com sucesso!' }
+            ctx.body = { 
+                success: true,
+                message: 'Usuário cadastrado com sucesso!',
+            }
             resultStatus = 201;
         }
     } else {
-        ctx.body = { message: 'Não foi possível cadastrar o usuário' }
+        ctx.body = {
+            success: false,
+            message: 'Cadastro não realizado! O usuário deve ter a idade maior ou igual a 18 anos.' 
+        }
         resultStatus = 400;
     }
 

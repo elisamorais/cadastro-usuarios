@@ -90,7 +90,7 @@ let updateUser = async function(nome, dados) {
 let listUsers = async function(page) {
     let result = []
     try {
-        let pageSize = 5;
+        let pageSize = 50;
         let offset = page * pageSize
 
         await connect();

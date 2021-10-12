@@ -9,11 +9,13 @@
     <h1 id="tituloCrud">Cadastro de usuários</h1>
     <div id="container" class="header">
         <div class="header">
-            <label for="modal-1" id="btnCriarUsuario" class="botao botaoAzul">Criar usuário</label>
+            <label for="modal-criar">
+                <a id="btnModalUsuario" class="botao botaoAzul">Criar usuário</a>
+            </label>
         </div>
         <div id="tabelaCrudContainer">
             <table id="tabelaCrud">
-                <tbody>
+                <thead>
                     <tr>
                         <th style="width: 10%">ID</th>
                         <th>Nome</th>
@@ -21,62 +23,35 @@
                         <th>Idade</th>
                         <th style="width: 20%">Ações</th>
                     </tr>
-                    <tr>
-                        <td>fasdfs</td>
-                        <td>afasdf</td>
-                        <td>fasfas</td>
-                        <td>fasdfs</td>
-                        <td class="acoes">
-                            <a href="#" class="botao botaoVerde">Editar</a>
-                            <a href="#" class="botao botaoVermelho">Deletar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>fasdfs</td>
-                        <td>afasdf</td>
-                        <td>fasfas</td>
-                        <td>fasdfs</td>
-                        <td class="acoes">
-                            <a href="#" class="botao botaoVerde">Editar</a>
-                            <a href="#" class="botao botaoVermelho">Deletar</a>
-                        </td>
-                    </tr>
-                </tbody>
+                </thead>
+                <tbody></tbody>
             </table>
         </div>
     </div>
 
-    <section class="modal--show" id="modal-text" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-        <div class="modal-inner">
-            <header id="modal-label"><!-- Header --></header>
-            <div class="modal-content"><!-- The modals content --></div>
-            <footer><!-- Footer --></footer>
-        </div>
-        <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-    </section>
-
-
-    <input class="modal-state" id="modal-1" type="checkbox" />
+    <input class="modal-state" id="modal-criar" type="checkbox" />
     <div class="modal">
-        <label class="modal__bg" for="modal-1"></label>
+        <label class="modal__bg" for="modal-criar"></label>
         <div class="modal__inner">
-            <label class="modal__close" for="modal-1"></label>
+            <label id="modalClose" class="modal__close" for="modal-criar"></label>
             <div id="formAdicionar">
                 <h2>Adicionar usuário</h2>                
                 
                 <div class="form-control">
                     <label>Nome:</label>
-                    <input type="text" id="inputNome">
+                    <input type="text" id="inputNome" />
                 </div>
                 <div class="form-control">
                     <label>E-mail:</label>
-                    <input type="email" id="inputNome">
+                    <input type="email" id="inputEmail" />
                 </div>
                 <div class="form-control">
                     <label>Idade:</label>
-                    <input type="number" id="inputNome">
+                    <input type="number" id="inputIdade" />
                 </div>
-                <a id="botaoSalvar" class="botao botaoVerde" href="#">Salvar</a>
+                <div class="botaoSalvarContainer">
+                    <a id="botaoSalvar" class="botao botaoVerde" href="#">Salvar</a>
+                </div>
             </div>
         </div>
     </div>
