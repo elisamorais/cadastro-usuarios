@@ -1,9 +1,0 @@
-1 - Nos testes
-"o usuario naoExiste não existe no sistema"
-'o usuario raupp não deve existir mais no sistema'
-'deveria excluir o usuario raupp'
-
-Não deveria ser necessário tentar validar o userSchema para requisições onde o usuário não existe ou exclusão de usuários
-Correção: O trecho abaixo foi removido
-
-"expect(res.body).to.be.jsonSchema(userSchema);"

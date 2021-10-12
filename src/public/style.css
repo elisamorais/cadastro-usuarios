@@ -1,0 +1,98 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    padding:0;
+    margin:0;
+    vertical-align:baseline;
+    list-style:none;
+    border: 0;
+    color: #535353;
+}
+
+#tituloCrud {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#container {
+    border: solid 2px #ececec;
+
+    margin: 25px 25px 25px 25px;
+}
+
+#container .header {
+    background-color: #f7f7f7;
+    border-bottom: solid 2px #ececec;
+
+    padding: 25px;
+}
+
+#tabelaCrudContainer {
+    display: flex;
+    margin: 25px;
+}
+
+#tabelaCrud {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tabelaCrud td, #tabelaCrud th {
+    border: solid 2px #ececec;
+    padding: 20px;
+}
+
+#tabelaCrud .acoes {
+    text-align: center;
+}
+
+.botao {
+    padding: 10px;
+    font-weight: bolder;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.botao.botaoAzul {
+    border: solid 2px #5da9ec;
+    color: #5da9ec;
+}
+
+.botao.botaoVerde {
+    border: solid 2px #70c391;
+    color: #70c391;
+}
+
+.botao.botaoVermelho {
+    border: solid 2px #ff8492;
+    color: #ff8492;
+}
+
+#formAdicionar {
+    display: flex;
+    flex-direction: column;
+}
+
+#formAdicionar .form-control {
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+#formAdicionar label {
+    display: block;
+}
+
+#formAdicionar input {
+    border: solid 2px #ececec;
+    color: #70c391;
+    border-radius: 5px;
+    height: 20px;
+    padding: 10px;
+}
+
+#botaoSalvar {
+    margin-top: 25      px;
+}

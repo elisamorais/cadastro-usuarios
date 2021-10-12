@@ -1,4 +1,5 @@
 # Referencias
+Sqlite no nodejs - https://www.sqlitetutorial.net/sqlite-nodejs/
 Sqlite com promises - https://sharklabs.com.br/tutorial-node-js-sqlite-promises/
 
 
@@ -15,12 +16,14 @@ OK - 2 - instale os pacotes do node: npm install
 OK - 3 - rode os testes de unindade: npm test
 OK - 3 - rode o projeto: npm run dev
 
-Não é necessário nenhuma interface grafica para este projeto. Tudo será testado via unit test, ou seja, você deverá implementar mais unit tests, usando o arquivo: /test/index.js antes ou após  implementar a API em sí.
+OK - Não é necessário nenhuma interface grafica para este projeto. 
+OK - Tudo será testado via unit test, ou seja, você deverá implementar mais unit tests, usando o arquivo: /test/index.js antes ou após  implementar a API em sí.
+
 Como bonus, pode ser criada uma interface básica em HTML5. (Não é necessário, é bônus).
 Como bonus 2, poderá ser adicionado uma documentaçãod a api, usando open-api3 ou swagger: https://editor.swagger.io/
 
 PS: O projeto base pode/deve ser alterado para uma melhor estrutura, especialmente se for adicionar controllers e banco de dados (sugiro sqlite3).
-Podem ser adicionados novos pacotes/bibliotecas npm (porem, não pode substituir os já existentes)
+OK - Podem ser adicionados novos pacotes/bibliotecas npm (porem, não pode substituir os já existentes)
 
 ENTREGA
 Prazo de entrega: Analise o teste, e retorne o quanto antes, quanto tempo você considera necessário, e quais etapas você vai entregar.
