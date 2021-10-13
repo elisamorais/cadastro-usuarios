@@ -42,7 +42,7 @@ router.get('/users', async (ctx) => {
     }
 });
 
-// Recupera um usuário
+// Recupera um usuário pelo nome
 router.get('/user/:nome', async (ctx) => {
     let nome = ctx.params.nome;
     let result = await db.getUser(nome)
