@@ -1,4 +1,5 @@
 var pageSize = 5;
+var host = 'http://localhost:3000/'
 
 // Popula a tabela com os dados vindos da API
 function popularTabela(json) {
@@ -52,7 +53,7 @@ function criarPaginacao(json) {
 
     for (let i = 1; i <= quantidadePaginacao; i++) {
         let a = document.createElement('a');
-        a.setAttribute('href', 'http://localhost:3000/?page='+ i);
+        a.setAttribute('href', host + '?page='+ i);
         a.innerText = i;
         
         if ((paginaAtual + 1) == i) {
@@ -73,7 +74,7 @@ function configurarEventosBotoes() {
             let r = confirm('Deseja deletar o usuário "' + nome + '"?');
             
             if (r == true) {
-                fetch('http://localhost:3000/user/' + nome, {
+                fetch(host + 'user/' + nome, {
                     method: 'DELETE', 
                     headers: {
                         'Accept': 'application/json, text/plain, */*',
@@ -137,10 +138,10 @@ function configurarEventosBotoes() {
         let url
         let method
         if (editMode) {
-            url = 'http://localhost:3000/user/' + nomeEditado;
+            url = host + 'user/' + nomeEditado;
             method = 'PUT';
         } else {
-            url = 'http://localhost:3000/user';
+            url = host + 'user';
             method = 'POST';
         }
 
@@ -179,7 +180,7 @@ let url = new URL(urlString);
 var paginaAtual = parseInt(url.searchParams.get('page')) - 1;
 
 (function() {
-    fetch('http://localhost:3000/users?page='+ paginaAtual, {
+    fetch(host + 'users?page='+ paginaAtual, {
         method: 'GET',
         headers: {
             'Accept': 'application/json, text/plain, */*',
