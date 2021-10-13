@@ -18,6 +18,9 @@
     modal.css
     apenas um css separado que foi usado pra criar um modal
 
+    koa2-swagger-ui
+    Utilizado para criação da documentação com swagger
+
 3 - A função isTestMode foi retirada do stackoverflow par auxiliar nos testes
 
 4 - Segui dois tutoriais para implementar o sqlite, um para entender como funciona e o outro para aprender a usar com async await.

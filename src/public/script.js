@@ -177,7 +177,12 @@ function configurarEventosBotoes() {
 let urlString = window.location.href;
 let url = new URL(urlString);
 
-var paginaAtual = parseInt(url.searchParams.get('page')) - 1;
+let paginaUrl = parseInt(url.searchParams.get('page')) || 0;
+
+var paginaAtual = 0;
+if (paginaUrl > 0) {
+    paginaAtual = paginaUrl - 1;
+}
 
 (function() {
     fetch(host + 'users?page='+ paginaAtual, {
