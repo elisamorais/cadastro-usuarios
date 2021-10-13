@@ -88,22 +88,23 @@ let updateUser = async function(nome, dados) {
 }
 
 let listUsers = async function(page) {
-    let result = []
+    let rowsDb;
+    let totalDb;
     try {
-        let pageSize = 50;
-        let offset = page * pageSize
+        let pageSize = 5;
+        let offset = page * pageSize;
 
         await connect();
-        const rows = await db.all('SELECT * FROM user LIMIT '+ pageSize +' OFFSET '+ offset);
-
-        for (let i = 0; i < rows.length; i++) {
-            result.push(rows[i]);
-        }
+        rowsDb = await db.all('SELECT * FROM user LIMIT '+ pageSize +' OFFSET '+ offset);
+        totalDb = await db.get('SELECT COUNT(id) as total FROM user');
     } catch (error) {
         console.log(error)
     }
 
-    return result;
+    return {
+        total: totalDb.total,
+        rows: rowsDb
+    };
 }
 
 // https://stackoverflow.com/questions/29183044/how-to-detect-if-a-mocha-test-is-running-in-node-js

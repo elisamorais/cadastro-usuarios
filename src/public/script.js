@@ -1,18 +1,12 @@
-(function() {
-fetch('http://localhost:3000/users', {
-    method: 'GET',
-    headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-    }
-})
-.then(res => res.json())
-.then(json => {
-    // Popula a tabela com os dados vindos da API
+var pageSize = 5;
+
+// Popula a tabela com os dados vindos da API
+function popularTabela(json) {
     for (let i = 0; i < json.rows.length; i++) {
         let tdId = document.createElement("td");
         tdId.innerText = json.rows[i].id
 
+        // Cria um elemento td para o valor "nome"
         let tdNome = document.createElement("td");
         tdNome.innerText = json.rows[i].nome
 
@@ -42,15 +36,34 @@ fetch('http://localhost:3000/users', {
         tdAcoes.appendChild(botaoDeletar);
 
         let tr = document.createElement("tr");
-        tr.appendChild(tdId)
-        tr.appendChild(tdNome)
-        tr.appendChild(tdEmail)
-        tr.appendChild(tdIdade)
-        tr.appendChild(tdAcoes)
+        tr.appendChild(tdId);
+        tr.appendChild(tdNome);
+        tr.appendChild(tdEmail);
+        tr.appendChild(tdIdade);
+        tr.appendChild(tdAcoes);
 
         document.querySelector('#tabelaCrud tbody').appendChild(tr)
     }
+}
 
+function criarPaginacao(json) {
+    let quantidadePaginacao = Math.ceil(json.total / pageSize);
+    let paginacao = document.getElementById('paginacao');
+
+    for (let i = 1; i <= quantidadePaginacao; i++) {
+        let a = document.createElement('a');
+        a.setAttribute('href', 'http://localhost:3000/?page='+ i);
+        a.innerText = i;
+        
+        if ((paginaAtual + 1) == i) {
+            a.setAttribute('class', 'ativo');
+        }
+
+        paginacao.appendChild(a);
+    }
+}
+
+function configurarEventosBotoes() {
     // Deleta o usuário com base no atributo "data-nome"
     let btnDeletarList = document.getElementsByClassName('botaoDeletar')
     for (let i = 0; i < btnDeletarList.length; i++) {
@@ -158,5 +171,26 @@ fetch('http://localhost:3000/users', {
             location.reload();
         });
     }
-});
- })();
+}
+
+let urlString = window.location.href;
+let url = new URL(urlString);
+
+var paginaAtual = parseInt(url.searchParams.get('page')) - 1;
+
+(function() {
+    fetch('http://localhost:3000/users?page='+ paginaAtual, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(json => {
+
+        popularTabela(json);
+        criarPaginacao(json);
+        configurarEventosBotoes();
+    });
+})();

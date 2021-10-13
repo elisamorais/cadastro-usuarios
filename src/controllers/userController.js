@@ -31,14 +31,14 @@ router.post('/user', async (ctx, next) => {
 // Lista todos os users
 router.get('/users', async (ctx) => {
     let page = parseInt(ctx.request.query.page) || 0
-    let userList = await db.listUsers(page)
+    let result = await db.listUsers(page)
     
     ctx.status = 200;
     ctx.body = { 
-        total: userList.length,
+        total: result.total,
         page: page,
         /* count: 0, */
-        rows: userList
+        rows: result.rows
     }
 });
 

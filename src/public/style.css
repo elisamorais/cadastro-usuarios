@@ -103,3 +103,24 @@
     text-align: center;
     padding-top: 65px;
 }
+
+#paginacaoContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 23px;
+}
+
+#paginacao a {
+    background-color: #f7f7f7;
+    border: solid 1px #cecece;
+    padding: 5px 12px;
+    margin: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#paginacao a.ativo {
+    background-color: #cecece;
+    color: white;
+}
